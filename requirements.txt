@@ -7,4 +7,3 @@ numpy
 spacy
 textblob
 scikit-learn
-subprocess
