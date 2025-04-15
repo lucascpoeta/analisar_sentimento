@@ -17,8 +17,8 @@ nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('stopwords')
 
-nlp = en_core_web_md.load()
-
+# Carregar o modelo Spacy
+nlp = spacy.load("en_core_web_md")
 
 
 
