@@ -1,0 +1,9 @@
+pandas
+zipfile36
+requests
+nltk
+streamlit
+numpy
+spacy
+textblob
+scikit-learn
