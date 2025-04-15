@@ -98,16 +98,8 @@ def treinar_spacy_model(df):
 st.set_page_config(page_title="Análise de Sentimentos Comparativa", layout="wide")
 st.title("✈️ Análise de Sentimentos com Comparação de Modelos")
 
-
-
-# Carregar os dados
-df = carregar_dados()
-st.write("🔍 Amostra dos dados:")
-st.dataframe(df[['text', 'airline_sentiment']].sample(5))
-
-
 # Explicação geral das métricas
-with st.expander("ℹ️ Métricas de Avaliação"):
+with st.expander("ℹ️ O que são as Métricas de Avaliação?"):
     st.markdown("""
     **Precision (Precisão)**: Mede a acurácia das previsões feitas como **positivas**.
     - Quanto o modelo está correto quando prevê algo como positivo.
@@ -127,6 +119,11 @@ with st.expander("ℹ️ Métricas de Avaliação"):
 
     Essas métricas ajudam a entender **onde o modelo acerta mais** e **onde pode melhorar**. Elas são importantes para avaliar a qualidade da previsão do modelo, especialmente quando as classes podem estar desequilibradas.
     """)
+
+# Carregar os dados
+df = carregar_dados()
+st.write("🔍 Amostra dos dados:")
+st.dataframe(df[['text', 'airline_sentiment']].sample(5))
 
 # --- TextBlob ---
 st.header("🔠 TextBlob")
@@ -195,3 +192,25 @@ acuracia_df = pd.DataFrame({
 })
 
 st.line_chart(acuracia_df.set_index("Modelos"))
+
+# --- Conclusão ---
+st.header("🔚 Conclusão")
+
+st.markdown("""
+Com base nos resultados obtidos, podemos comparar o desempenho de cada modelo utilizado para análise de sentimentos:
+
+1. **TextBlob**:
+   - Acurácia: **46.44%**
+   - O modelo **TextBlob** obteve uma acurácia relativamente baixa, com desempenho fraco, especialmente em identificar sentimentos **negativos** e **positivos**. Isso ocorre porque o TextBlob é uma abordagem mais simples que utiliza análise de polaridade, mas que não leva em conta o contexto mais profundo das palavras.
+
+2. **TF-IDF + Logistic Regression**:
+   - Acurácia: **79.58%**
+   - O modelo **TF-IDF + Regressão Logística** obteve a melhor acurácia entre os três. Ele usou a técnica de transformação **TF-IDF**, que cria representações numéricas das palavras, permitindo que o modelo compreenda melhor o contexto semântico do texto. O classificador de **Regressão Logística** fez um trabalho eficaz de identificar os sentimentos presentes.
+
+3. **SpaCy Embeddings + Logistic Regression**:
+   - Acurácia: **74.59%**
+   - O modelo **SpaCy + Regressão Logística** obteve uma boa acurácia, mas ficou atrás do TF-IDF. Embora o SpaCy utilize **embeddings**, que capturam o significado semântico das palavras de forma mais profunda, o modelo não teve um desempenho tão superior quanto o TF-IDF, possivelmente por causa de como o SpaCy lida com as representações vetoriais.
+
+### Conclusão Final:
+**TF-IDF + Regressão Logística** foi o modelo que apresentou o melhor desempenho, com a maior acurácia de **79.58%**. Esse modelo é eficaz em transformar o texto em uma representação numérica que captura palavras relevantes para a tarefa de análise de sentimentos. Apesar de **SpaCy** fornecer uma representação semântica mais profunda das palavras, o TF-IDF mostrou ser mais eficiente para esta tarefa específica.
+""")
