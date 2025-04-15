@@ -17,8 +17,15 @@ nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('stopwords')
 
-# Carregar o modelo Spacy
-nlp = spacy.load("en_core_web_md")
+import subprocess
+
+try:
+    nlp = spacy.load("en_core_web_md")
+except OSError:
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_md"])
+    nlp = spacy.load("en_core_web_md")
+
+
 
 
 # ----- Funções de Processamento e Modelagem -----
