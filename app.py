@@ -98,8 +98,14 @@ def treinar_spacy_model(df):
 st.set_page_config(page_title="Análise de Sentimentos Comparativa", layout="wide")
 st.title("✈️ Análise de Sentimentos com Comparação de Modelos")
 
+
+# Carregar os dados
+df = carregar_dados()
+st.write("🔍 Amostra dos dados:")
+st.dataframe(df[['text', 'airline_sentiment']].sample(5))
+
 # Explicação geral das métricas
-with st.expander("ℹ️ O que são as Métricas de Avaliação?"):
+with st.expander("ℹ️Métricas de Avaliação?"):
     st.markdown("""
     **Precision (Precisão)**: Mede a acurácia das previsões feitas como **positivas**.
     - Quanto o modelo está correto quando prevê algo como positivo.
@@ -119,11 +125,6 @@ with st.expander("ℹ️ O que são as Métricas de Avaliação?"):
 
     Essas métricas ajudam a entender **onde o modelo acerta mais** e **onde pode melhorar**. Elas são importantes para avaliar a qualidade da previsão do modelo, especialmente quando as classes podem estar desequilibradas.
     """)
-
-# Carregar os dados
-df = carregar_dados()
-st.write("🔍 Amostra dos dados:")
-st.dataframe(df[['text', 'airline_sentiment']].sample(5))
 
 # --- TextBlob ---
 st.header("🔠 TextBlob")
